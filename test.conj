@@ -1,0 +1,20 @@
+// Helper function to add two numbers
+add x, y : {
+    return x + y;
+}
+
+// Main execution block
+main : {
+    var a = 10, b = 20;
+    var result = add(a, b);
+    
+    if (result == 30) {
+        result++;
+    }
+    
+    while (result < 35) {
+        result += 2;
+    }
+    
+    return result;
+}

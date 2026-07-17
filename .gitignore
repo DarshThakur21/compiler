@@ -1,1 +1,11 @@
 .vs/ 
+bison
+conj_compiler.exe
+lexer.cc
+location.hh
+parser.tab.cc
+parser.tab.hh
+position.hh
+stack.hh
+        
+        

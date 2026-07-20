@@ -233,15 +233,15 @@ paramdecl:			paramdecl ',' identifier1 {ctx.defparm($3);}
 // Error recovery stubs: lets the engine handle syntax blunders gracefully without crashing
 
 
-identifier1:		error{} | IDENTIFIER				{$$ = M($1);};
-colon1:				error{} | ':';
-semicolon1:			error{} | ';';
-cl_brace1:			error{} | '}';
-cl_bracket1:		error{} | ']';
-cl_parens1:			error{} | ')';
-stmt1:				error{} | stmt						{$$ = M($1);};
-exprs1:				error{}	| exprs 					{$$ = M($1);};			
-expr1:				error{} | expr						{$$ = M($1);};
+identifier1:		 IDENTIFIER				{$$ = M($1);};
+colon1:				 ':';
+semicolon1:			 ';';
+cl_brace1:			 '}';
+cl_bracket1:		 ']';
+cl_parens1:			 ')';
+stmt1:				 stmt						{$$ = M($1);};
+exprs1:				 exprs 					    {$$ = M($1);};
+expr1:				 expr						{$$ = M($1);};
 
 //$1 = '(' $2 = expression(10+20) $3 = ')'
 p_expr1:			error{} | '(' exprs1 cl_parens1     {$$ = M($2);}; 

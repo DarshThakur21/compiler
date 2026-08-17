@@ -71,6 +71,8 @@ conj_parser::symbol_type yylex(lexcontext& ctx)
     "--"      { return s(conj_parser::make_MM);    }
     "+="      { return s(conj_parser::make_PL_EQ); }
     "-="      { return s(conj_parser::make_MI_EQ); }
+    "<="      { return s(conj_parser::make_LE);    }
+    ">="      { return s(conj_parser::make_GE);    }
 
     // 6. Single-character punctuation and math operators
     ","       { return char_token(','); }
@@ -89,9 +91,12 @@ conj_parser::symbol_type yylex(lexcontext& ctx)
     "&"       { return char_token('&'); }
     "!"       { return char_token('!'); }
     "?"       { return char_token('?'); }
+    "<"       { return char_token('<'); }
+    ">"       { return char_token('>'); }
 
     // 7. End of File
     "\x00"    { return s(conj_parser::make_END); }
+    
 
     // 8. CATCH-ALL SAFETY NET (MUST BE AT THE ABSOLUTE BOTTOM!)
     . { 

@@ -101,6 +101,8 @@ stringify (const expression &e, bool stmt)
     case ex_type::loop:
       return "while " + stringify (e.params.front (), false) + " "
              + stringify_op (e, "; ", "{}", true, 1);
+    case ex_type::lt:
+      return stringify_op (e, " < ", "()");
     case ex_type::ret:
       return "return " + expect1 ();
     }

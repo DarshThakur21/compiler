@@ -57,7 +57,7 @@ struct identifier
 // X-Macro for Expression Types: Types of nodes available in our AST.
 #define ENUM_EXPRESSIONS(o) \
         o(nop) o(string) o(number) o(ident)       /* Core Leaf/Atom nodes */ \
-        o(add) o(neg) o(eq)                       /* Math & transformations */ \
+        o(add) o(neg) o(eq) o(lt)                      /* Math & transformations */ \
         o(cor) o(cand) o(loop)                    /* Logical structures and Whiles */ \
         o(addrof) o(deref)                        /* Pointer addressing (& and *) */ \
         o(fcall)                                  /* Function execution */ \
@@ -198,13 +198,14 @@ expression lexcontext::use(const std::string& name)
 %token             END 0
 %token             RETURN "return" WHILE "while" IF "if" VAR "var"
 %token             OR "||" AND "&&" EQ "==" NE "!=" PP "++" MM "--" PL_EQ "+=" MI_EQ "-="
-
+%token             LE "<=" GE ">="
 // Operator Precedence & Associativity Layout (Bottom rules resolve with highest priority)
 %left  ','
 %right '?' ':' '=' "+=" "-="
 %left  "||"
 %left  "&&"
 %left  "==" "!="
+%left  '<' '>' "<=" ">="
 %left  '+' '-'
 %left  '*'
 %right '&' "++" "--"
@@ -297,6 +298,10 @@ expr:             NUMCONST                                                      
                 | expr "&&" error {$$=M($1);} | expr "&&" expr              { $$ = e_cand(M($1), M($3)); }
                 | expr "==" error {$$=M($1);} | expr "==" expr              { $$ = e_eq(  M($1), M($3)); }
                 | expr "!=" error {$$=M($1);} | expr "!=" expr   %prec "==" { $$ = e_eq(e_eq(M($1), M($3)), 0l); }
+                | expr '<'  error {$$=M($1);} | expr '<' expr                { $$ = e_lt(M($1), M($3)); }
+                | expr '>'  error {$$=M($1);} | expr '>' expr    %prec '<'   { $$ = e_lt(M($3), M($1)); }
+                | expr "<=" error {$$=M($1);} | expr "<=" expr   %prec '<'   { $$ = e_eq(e_lt(M($3), M($1)), 0l); }
+                | expr ">=" error {$$=M($1);} | expr ">=" expr   %prec '<'   { $$ = e_eq(e_lt(M($1), M($3)), 0l); }
                 | '&' error{}                 | '&' expr                    { $$ = e_addrof(M($2)); }
                 | '*' error{}                 | '*' expr         %prec '&'  { $$ = e_deref(M($2));  }
                 | '-' error{}                 | '-' expr         %prec '&'  { $$ = e_neg(M($2));    }

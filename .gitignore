@@ -7,5 +7,10 @@ parser.tab.cc
 parser.tab.hh
 position.hh
 stack.hh
-        
+  y
+  Y
+  y.pub
+  Y.pub
+  
+
         

@@ -14,7 +14,7 @@ g++ -std=c++17 main.cpp parser.tab.cc lexer.cc -o conj_compiler
 
 
 Run the Compiler on your input script:
-.\conj_compiler.exe test.conj
+./{parser:name} test.conj
 
 
 Run the Compiler on your input script:

@@ -1,0 +1,21 @@
+
+Generate the Parser (creates parser.tab.cc, parser.tab.hh, and location.hh):
+
+bison -d parser.yy -o parser.tab.cc
+
+Generate the Lexer (creates lexer.cc):
+re2c -o lexer.cc lexer.re
+
+
+
+
+Compile the Executable:
+g++ -std=c++17 main.cpp parser.tab.cc lexer.cc -o conj_compiler
+
+
+Run the Compiler on your input script:
+.\conj_compiler.exe test.conj
+
+
+Run the Compiler on your input script:
+.\conj_compiler.exe test.conj

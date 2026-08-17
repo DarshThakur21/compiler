@@ -29,8 +29,7 @@
 {
 #include <map>
 #include <list>
-#include <vector>
-#include <string>
+#include <vectorinclude <strin>
 #include <iostream>
 #include <utility>
 #include <algorithm>
